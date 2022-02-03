@@ -1,0 +1,32 @@
+.dropdown {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #1F1F1F;
+  border-left: 1px solid #1F1F1F;
+  border-top: 1px solid #1F1F1F;
+  transform: translate(-50%, -50%) rotate(45deg);
+  right: 8px;
+  top: 0px;
+}
+
+.dropdownMenu {
+  right: -10px !important;
+  top: 10px !important;
+  width: 300px;
+  border-radius: 5px;
+  background-color: #1F1F1F;
+}
+
+.dropdownItem:hover {
+  background: transparent;
+}
+
+.dropdownItem2 {
+  padding: 8px 8px;
+  border-radius: 3px;
+}
+
+.dropdownItem2:hover {
+  background: #6A6A6A4D;
+}

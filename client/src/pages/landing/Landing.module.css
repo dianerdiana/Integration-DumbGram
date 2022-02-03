@@ -1,0 +1,52 @@
+.appName {
+  margin-bottom: 50px;
+}
+
+.appTitle h2 {
+  color:#FFFFFF;
+  font-size: 44px;
+  font-weight: 800;
+  margin-left: 20px;
+  line-height: 60px;
+  word-spacing: 3px;
+}
+
+.textDesc {
+  margin-top: 20px;
+  margin-left: 20px;
+  color: #6A6A6A;
+  width: 80%;
+}
+
+.btnGroup {
+  margin-left: 20px;
+  margin-top: 40px;
+  margin-bottom: 90px;
+}
+
+.btnLogin {
+  font-weight: 900;
+  color: #FFFFFF;
+  border-radius: 5px;
+  border: none;
+  padding: 7px 40px;
+  margin-right: 30px;
+  background: linear-gradient(90deg, #4DD4F7 0%, #9090FB 36.46%, #FF6B81 71.35%, #FBDF63 100%);
+}
+
+.btnRegister {
+  background-color: transparent;
+  border: none;
+  color: #B7B7B7;
+  font-weight: 900;
+}
+
+.imgGridGroup {
+  padding-top: 15px;
+}
+
+.gridGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

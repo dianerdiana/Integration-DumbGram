@@ -1,0 +1,49 @@
+.form {
+  font-family: avenir;
+  padding: 15px 10px;
+}
+
+.formTitle {
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.formInput {
+  border: 2px solid #D2D2D2;
+  background: rgba(210, 210, 210, 0.25);
+}
+.formInput::placeholder {
+  color: #B1B1B1;
+}
+
+.btnLogin {
+  width: 100%;
+  border: none;
+  background: linear-gradient(90deg, #4DD4F7 0%, #9090FB 36.46%, #FF6B81 71.35%, #FBDF63 100%);
+}
+
+.customDialogStyle {
+  width: 30%;
+}
+
+.customContentStyle {
+  background-color: #1F1F1F;
+  border-radius: 10px;
+}
+
+.formTitle {
+  margin-bottom: 35px;
+}
+
+.inputGroup {
+  margin-top: 18px;
+}
+
+.btnGroup {
+  margin-top: 35px;
+}
+
+.loginDesc {
+  color: #B1B1B1;
+  text-align: center;
+}

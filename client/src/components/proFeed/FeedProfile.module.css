@@ -1,0 +1,210 @@
+.leftFeed {
+  flex-direction: column;
+  height: 90vh;
+}
+
+.appTitle {
+  width: 120px;
+}
+
+.leftFeed .feedProfile {
+  width: 100%;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  margin-left: 0;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.leftFeed .feedProfile .editBtn {
+  width: 18px;
+  height: auto;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+}
+
+.editBtnIcon {
+  width: 18px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profileImageWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #4DD4F7 0%, #9090FB 30.73%, #FF6B81 68.75%, #FBDF63 100%);
+}
+
+.leftFeed .feedProfile .profileImage {
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  text-align: center;
+}
+
+.leftFeed .feedProfile .profileNameUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.leftFeed .feedProfile .profileNameUser .profileName {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.leftFeed .feedProfile .profileNameUser .profileUserName {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: #ABABAB;
+}
+
+.leftFeed .feedProfile .btnAction {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.leftFeed .feedProfile .btnAction button {
+  padding: 3.5px 12px;
+  border: none;
+  background: linear-gradient(90deg, #4DD4F7 0%, #9090FB 36.46%, #FF6B81 71.35%, #FBDF63 100%);
+}
+
+.leftFeed .feedProfile .btnAction .btnUnfollow {
+  margin-left: 10px;
+  border: none;
+  background: rgba(171, 171, 171, 0.15);
+}
+
+.leftFeed .feedProfile .profileState {
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.profilePost, .profileFollow {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px
+}
+
+.profileFollowers {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid #6A6A6A4D;
+  border-right: 1px solid #6A6A6A4D;
+}
+.stateTitle {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: #ABABAB;
+}
+
+.stateValue {
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.profileDesc {
+  margin-top: 15px;
+}
+
+.profileDescText {
+  font-size: 12px;
+  color: #FFFFFF;
+  font-family: avenir-light;
+}
+
+.linkFeedExplore {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  align-content: space-around;
+  flex-direction: column;
+  padding: 25px 0px;
+  width: 92%;
+  border-top: 1px solid #6A6A6A4D;
+  border-bottom: 1px solid #6A6A6A4D;
+}
+
+.linkFeed {
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+
+.leftFeed .linkFeedExplore .linkExplore, .btnLogout {
+  padding-left: 0;
+}
+
+.leftFeed .linkFeedExplore .linkFeed img, .leftFeed .linkFeedExplore .linkExplore img, .btnLogout img {
+  width: 15px;
+}
+
+.leftFeed .linkFeedExplore .linkFeed a {
+  display: flex;
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+.leftFeed .linkFeedExplore .linkExplore a span{
+  color: #ABABAB;
+  display: flex;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btnGroup {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  flex-direction: column;
+  padding: 25px 25px;
+  width: 80%;
+}
+
+.leftFeed .linkFeedExplore .linkExplore a, a.btnLogout {
+  display: flex;
+  text-decoration: none;
+  color: #ABABAB;
+  font-size: 14px;
+}
+
+.linkFeed a span, .linkExplore a span, .btnLogout span {
+  margin-left: 10px;
+}
+
+/* End of styling left side */
