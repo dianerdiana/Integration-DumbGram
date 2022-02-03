@@ -6,13 +6,13 @@ function CreateForm() {
   return (
     <>
       <Form className={styleForm.form}>
-        <Form.Group className="mb-3" className={styleForm.formGroup}>
+        <Form.Group className={styleForm.formGroup}>
           <Button className={styleForm.formBtnUpload}>Upload photos or videos</Button>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="caption" className={styleForm.formGroup}>
+        <Form.Group controlId="caption" className={styleForm.formGroup}>
           <Form.Control as="textarea" rows={6} placeholder="Caption" className={styleForm.formInput}/>
         </Form.Group >
-        <Form.Group className="mb-3" className={styleForm.formGroup} style={{position: "relative"}}>
+        <Form.Group className={styleForm.formGroup} style={{position: "relative"}}>
           <Button className={styleForm.formBtnSave}>Upload</Button>
         </Form.Group>
       </Form>
