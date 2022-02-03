@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
+import { useContext, useState, useEffect } from 'react';
 
 import Landing from './pages/landing/Landing';
 import Feed from './pages/Feed';
@@ -11,22 +12,82 @@ import MessagesMain from './pages/message/MessagesMain';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 
+// Get API config & setAuthToken here ...
+import { API, setAuthToken } from './config/api';
+
+import { UserContext } from './context/userContext';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 function App() {
+
+  let navigate = useNavigate();
+
+  // Init user context here ...
+  const [state, dispatch] = useContext(UserContext);
+
+  console.log(state);
+
+  // Redirect Auth here ...
+  useEffect(() => {
+    // Redirect Auth
+    if (state.isLogin == false) {
+      navigate('/');
+    } else {
+      navigate("/feed")
+    }
+  }, [state]);
+
+   // Create function for check user token here ...
+   const checkUser = async () => {
+    try {
+      const response = await API.get('/check-auth');
+
+      console.log(response)
+
+      // If the token incorrect
+      if (response.status === 404) {
+        return dispatch({
+          type: 'AUTH_ERROR',
+        });
+      }
+
+      // Get user data
+      let payload = response.data.data.user;
+      // Get token from local storage
+      payload.token = localStorage.token;
+
+      console.log(payload)
+
+      // Send data to useContext
+      dispatch({
+        type: 'USER_SUCCESS',
+        payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
   return (
     <div className='App'>
-      <Router>
-        <Routes>
-          <Route exact path="/" element={ <Landing /> } />
-          <Route exact path="/edit-profile" element={ <EditProfile /> } />
-          <Route exact path="/create-post" element={ <CreatePost /> } />
-          <Route exact path="/profile" element={ <Profile /> } />
-          <Route exact path="/explore" element={ <Explore /> } />
-          <Route exact path="/messages" element={ <MessagesMain /> } />
-          <Route exact path="/feed" element={ <Feed /> } />
-          <Route exact path="/login" element={ <Login show={true}/> } />
-          <Route exact path="/register" element={ <Register show={true}/> } />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route exact path="/" element={ <Landing /> } />
+        <Route exact path="/edit-profile" element={ <EditProfile /> } />
+        <Route exact path="/create-post" element={ <CreatePost /> } />
+        <Route exact path="/profile" element={ <Profile /> } />
+        <Route exact path="/explore" element={ <Explore /> } />
+        <Route exact path="/messages" element={ <MessagesMain /> } />
+        <Route exact path="/feed" element={ <Feed /> } />
+        <Route exact path="/login" element={ <Login show={true}/> } />
+        <Route exact path="/register" element={ <Register show={true}/> } />
+      </Routes>
     </div>
   );
 }

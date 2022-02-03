@@ -1,10 +1,13 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
 require('dotenv').config()
 
 const PORT = 5000;
 
 app.use(express.json())
+app.use(cors())
 
 // Get routes to the variabel
 const router = require("./src/routes")

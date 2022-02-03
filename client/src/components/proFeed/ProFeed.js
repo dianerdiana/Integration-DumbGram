@@ -1,8 +1,25 @@
 import { Image, Row, Col } from 'react-bootstrap'
 import style from './FeedProfile.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { UserContext } from "../../context/userContext";
+
+import React, { useContext } from "react";
 
 export default function FeedProfile() {
+
+  const [state, dispatch] = useContext(UserContext);
+
+  let navigate = useNavigate()
+
+  const logout = () => {
+    console.log(state);
+    dispatch({
+      type: "LOGOUT",
+    });
+    navigate("/");
+  };
+
   return(
     <Row className={style.leftFeed}>
       <Col>
@@ -56,10 +73,10 @@ export default function FeedProfile() {
         </Row>
         <Row style={{ paddingTop: "15px"}}>
           <Col className={style.btnGroup}>
-            <Link to="/" className={style.btnLogout}>
+            <button onClick={logout} className={style.btnLogout}>
               <Image src="/icons/logout-icon.svg"/>
               <span>Logout</span>
-            </Link>
+            </button>
           </Col>
         </Row>
       </Col>

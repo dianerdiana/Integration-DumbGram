@@ -7,7 +7,7 @@ const { auth } = require('../middleware/auth')
 
 //import authorization
 const {
-  register, login
+  register, login, checkAuth
 } = require("../controllers/auth");
 
 //import users
@@ -29,6 +29,7 @@ const { uploadFile } = require("../middleware/uploadFile");
 //route auth
 router.post("/register", register)
 router.post("/login", login)
+router.get("/check-auth", auth, checkAuth);
 
 //route user
 router.get("/users", auth, getUsers)
