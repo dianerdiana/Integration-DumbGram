@@ -1,41 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap"
+import { useState, useContext, useEffect } from "react"
+import { UserContext } from '../context/userContext';
+
+import { API } from '../config/api'
+import { useParams } from "react-router-dom";
+
 import Masonry from "react-masonry-css"
 import FeedCard from "../components/feed-card/FeedCard"
 import ProUser from "../components/proUser/ProUser"
 import Navbar from "../components/navbar/Navbar"
-
-const assets = [
-  {
-    name: "zayn",
-    image: "/images/Rectangle-1.png",
-    like: "126.100",
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-3.png",
-    like: "156.290"
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-7.png",
-    like: "136.000"}
-  ,
-  {
-    name: "zayn",
-    image: "/images/Rectangle-9.png",
-    like: "136.000"
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-4.png",
-    like: "136.000"
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-2.png",
-    like: "136.000"
-  }
-]
 
 const content = [
   {
@@ -54,6 +27,33 @@ const content = [
 
 
 function Profile() {
+
+  const [state, dispatch] = useContext(UserContext)
+
+  let { id } = useParams()
+
+  id = state.user.id
+
+  const [ feeds, setFeeds ] = useState([])
+
+  console.log(feeds)
+
+  const getFollowedFeed = async (id) => {
+    try {
+      
+      const response = await API.get("/feed/" + id)
+
+      setFeeds(response.data.data.feed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getFollowedFeed(id)
+  }, []);
+
   return (
     <Container fluid style={{height: "95vh" }}>
       <Row style={{flexDirection: "row"}}>
@@ -62,16 +62,6 @@ function Profile() {
           <ProUser />
 
         </Col>
-
-        <div style={{
-            borderLeft: "1px solid #6A6A6A4D",
-            height: "100vh",
-            width: "0px",
-            position: "absolute",
-            left: "28%",
-            top: "0"
-          }}>
-        </div>
 
         <Col md="8" style={{marginLeft: "80px"}}>
 
@@ -88,9 +78,9 @@ function Profile() {
               breakpointCols={3}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid-column">
-                {assets.map((item, index) => {
+                {feeds?.map((item) => {
                   return(
-                    <FeedCard item={item} key={index}></FeedCard>
+                    <FeedCard item={item} key={item.id}></FeedCard>
                   )
                 })}
               </Masonry>
@@ -99,6 +89,16 @@ function Profile() {
 
         </Col>
       </Row>
+
+      <div style={{
+            borderLeft: "1px solid #6A6A6A4D",
+            height: "100vh",
+            width: "0px",
+            position: "absolute",
+            left: "28%",
+            top: "0"
+          }}>
+        </div>
     </Container>
   )
 }

@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { Route, Routes, useNavigate, useParams } from "react-router-dom"
 import { useContext, useState, useEffect } from 'react';
 
 import Landing from './pages/landing/Landing';
@@ -24,6 +24,8 @@ if (localStorage.token) {
 function App() {
 
   let navigate = useNavigate();
+  // let { id } = useParams();
+  // id = state.user.id
 
   // Init user context here ...
   const [state, dispatch] = useContext(UserContext);

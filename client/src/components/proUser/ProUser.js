@@ -1,9 +1,26 @@
 import { Row, Col, Image } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { UserContext } from "../../context/userContext";
+import React, { useContext } from "react";
+
 import style from './ProUser.module.css'
-import { Link } from 'react-router-dom'
 
 
 export default function ProUser() {
+
+  let navigate = useNavigate()
+
+  const [state, dispatch] = useContext(UserContext);
+
+  const logout = () => {
+    console.log(state);
+    dispatch({
+      type: "LOGOUT",
+    });
+    navigate("/");
+  };
+
   return (
     <Row className={style.leftFeed}>
       <Col>
@@ -56,10 +73,10 @@ export default function ProUser() {
         </Row>
         <Row style={{ paddingTop: "15px"}}>
           <Col className={style.btnGroup}>
-            <Link to="/" className={style.btnLogout}>
+            <button onClick={logout} className={style.btnLogout}>
               <Image src="/icons/logout-icon.svg"/>
               <span>Logout</span>
-            </Link>
+            </button>
           </Col>
         </Row>
       </Col>

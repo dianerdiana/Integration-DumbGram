@@ -88,3 +88,53 @@ exports.addFollowUser = async (req, res) => {
     })
   }
 }
+
+exports.followersCount = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await tb_followers.count({
+      where: {
+        user_id: id,
+      },
+    });
+
+    res.send({
+      status: "success",
+      data: {
+        followers: data,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.followingCount = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await tb_follows.count({
+      where: {
+        user_id: id,
+      },
+    });
+
+    res.send({
+      status: "success",
+      data: {
+        following: data,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};

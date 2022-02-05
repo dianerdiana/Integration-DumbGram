@@ -12,12 +12,12 @@ const {
 
 //import users
 const {
-  getUsers, editUser, deleteUser
+  getUsers, editUser, deleteUser, getUser
 } =require('../controllers/users')
 
 //import follow
-const { getFollowers, getFollowing, addFollowUser } = require('../controllers/follows');
-const { addFeed, getFollowedFeed, getFeeds } = require("../controllers/feeds");
+const { getFollowers, getFollowing, addFollowUser, followersCount, followingCount } = require('../controllers/follows');
+const { addFeed, getFollowedFeed, getFeeds, getFeedsUser, countFeedsUser } = require("../controllers/feeds");
 
 //import comments
 const { getComments, addComment } = require('../controllers/comments')
@@ -35,16 +35,21 @@ router.get("/check-auth", auth, checkAuth);
 router.get("/users", auth, getUsers)
 router.patch("/user/:id", auth, editUser)
 router.delete("/user/:id", deleteUser)
+router.get("/user/:id", auth, getUser)
 
 //route follows
 router.get("/followers/:id", getFollowers)
 router.get("/following/:id", getFollowing)
 router.post("/follow-user/:id", auth, addFollowUser)
+router.get("/followers-count/:id", followersCount)
+router.get("/following-count/:id", followingCount)
 
 //route feeds
 router.post("/feed", auth, uploadFile('image'), addFeed)
 router.get("/feed/:id", auth, getFollowedFeed)
 router.get("/feeds", getFeeds)
+router.get("/feed-user/:id", getFeedsUser)
+router.get("/count-feeds/:id", countFeedsUser)
 
 //route comments
 router.get("/comments/:id", auth, getComments)

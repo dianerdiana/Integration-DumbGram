@@ -1,8 +1,28 @@
 import { Image, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from './ProExplore.module.css'
 
+import { UserContext } from "../../context/userContext";
+import React, { useContext } from "react";
+
+
 export default function FeedProfile() {
+
+  let navigate = useNavigate()
+
+  const [state, dispatch] = useContext(UserContext);
+
+  const logout = () => {
+    console.log(state);
+    dispatch({
+      type: "LOGOUT",
+    });
+    navigate("/");
+  };
+
+  const user = state.user
+
+
   return(
     <Row className={style.leftFeed}>
       <Col>
@@ -16,11 +36,11 @@ export default function FeedProfile() {
             </Link>
           </div>
           <div className={style.profileImageWrap} mb={5}>
-            <Image src="/images/Rectangle-6.png" className={style.profileImage} />
+            <Image src={user.image} className={style.profileImage} />
           </div>
           <div className={style.profileNameUser} mb={5}>
-            <h5 className={style.profileName}>Lisa</h5>
-            <p className={style.profileUserName}>@lalalisa_m</p>
+            <h5 className={style.profileName}>{user.fullName}</h5>
+            <p className={style.profileUserName}>@{user.username}</p>
           </div>
           <div className={style.profileState}>
             <div className={style.profilePost}>
@@ -37,7 +57,7 @@ export default function FeedProfile() {
             </div>
           </div>
           <div className={style.profileDesc}>
-            <span className={style.profileDescText}>Rapper in Black Pink, Brand Ambasador Penshoppe</span>
+            <span className={style.profileDescText}>{user.bio}</span>
           </div>
         </Row>
         <Row className={style.linkFeedExplore}>
@@ -56,10 +76,10 @@ export default function FeedProfile() {
         </Row>
         <Row style={{ paddingTop: "15px"}}>
           <Col className={style.btnGroup}>
-            <Link to="/" className={style.btnLogout}>
+            <button onClick={logout} className={style.btnLogout}>
               <Image src="/icons/logout-icon.svg"/>
               <span>Logout</span>
-            </Link>
+            </button>
           </Col>
         </Row>
       </Col>

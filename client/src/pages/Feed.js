@@ -1,41 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap"
+import { useState, useContext, useEffect } from "react"
+import { UserContext } from '../context/userContext';
+
+import { API } from '../config/api'
+import { useParams } from "react-router-dom";
+
 import Masonry from "react-masonry-css"
 import FeedCard from "../components/feed-card/FeedCard"
 import Navbar from "../components/navbar/Navbar"
 import ProFeed from "../components/proFeed/ProFeed"
-
-const assets = [
-  {
-    name: "zayn",
-    image: "/images/Rectangle-1.png",
-    like: "126.100",
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-3.png",
-    like: "156.290"
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-7.png",
-    like: "136.000"}
-  ,
-  {
-    name: "zayn",
-    image: "/images/Rectangle-9.png",
-    like: "136.000"
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-4.png",
-    like: "136.000"
-  },
-  {
-    name: "zayn",
-    image: "/images/Rectangle-2.png",
-    like: "136.000"
-  }
-]
 
 const content = [
   {
@@ -54,12 +27,88 @@ const content = [
 
 function Feed() {
 
+  const [state, dispatch] = useContext(UserContext)
+
+  let { id } = useParams()
+  id = state.user.id
+
+  const [ feeds, setFeeds ] = useState([])
+  const [ followers, setFollowers ] = useState(0)
+  const [ following, setFollowing ] = useState(0)
+  const [ userFeeds, setUserFeeds ] = useState(0)
+
+  console.log(feeds)
+
+  const getFollowedFeed = async (id) => {
+    try {
+      
+      const response = await API.get("/feed/" + id)
+
+      setFeeds(response.data.data.feed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getFollowersCount = async (id) => {
+    try {
+      
+      const response = await API.get("/followers-count/" + id)
+
+      setFollowers(response.data.data.followers)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getFollowingCount = async (id) => {
+    try {
+      
+      const response = await API.get("/following-count/" + id)
+
+      setFollowing(response.data.data.following)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const countUserFeeds = async (id) => {
+    try {
+      
+      const response = await API.get("/count-feeds/" + id)
+
+      setUserFeeds(response.data.data.feed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const dataUser = {
+    ...state.user,
+    followers,
+    following,
+    userFeeds
+  }
+
+  console.log(dataUser)
+
+  useEffect(() => {
+    getFollowedFeed(id);
+    getFollowersCount(id);
+    getFollowingCount(id);
+    countUserFeeds(id);
+  }, []);
+
   return (
     <Container fluid style={{height: "95vh" }}>
       <Row style={{flexDirection: "row"}}>
         <Col md="3">
 
-          <ProFeed />
+          <ProFeed dataProfile={dataUser}/>
 
         </Col>
 
@@ -87,9 +136,9 @@ function Feed() {
               breakpointCols={3}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid-column">
-                {assets.map((item) => {
+                {feeds?.map((item) => {
                   return(
-                    <FeedCard item={item} key={item.image}></FeedCard>
+                    <FeedCard item={item} key={item.id}></FeedCard>
                   )
                 })}
               </Masonry>

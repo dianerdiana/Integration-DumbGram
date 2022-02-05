@@ -1,4 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap"
+import { useState, useContext, useEffect } from "react"
+import { UserContext } from '../context/userContext';
+
+import { API } from '../config/api'
+
+
 import Masonry from "react-masonry-css"
 import ExploreCard from "../components/ExploreCard"
 import ProExplore from "../components/proExplore/ProExplore"
@@ -53,31 +59,42 @@ const content = [
 ]
 
 function Explore() {
+
+  const [state, dispatch] = useContext(UserContext);
+
+  const [ feeds, setFeeds ] = useState([]);
+
+  console.log(feeds)
+
+  const getFeeds = async () => {
+    try {
+      
+      const response = await API.get("/feeds")
+
+      setFeeds(response.data.data.feed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  useEffect(() => {
+    getFeeds()
+  }, []);
+
+
   return (
     <Container fluid style={{height: "95vh" }}>
       <Row style={{flexDirection: "row"}}>
         <Col md="3">
 
-          {/* profile side (left side) */}
-
-          <ProExplore />
+          <ProExplore dataProfile={state}/>
 
         </Col>
 
-        <div style={{
-          borderLeft: "1px solid #6A6A6A4D",
-          height: "100vh",
-          width: "0px",
-          position: "absolute",
-          left: "28%",
-          top: "0"
-        }}></div>
-          {/* feed image (right side) */}
         <Col md="8" style={{marginLeft: "80px"}}>
 
           <Row className="right-side">
-
-            {/* NavBar Head */}
 
             <Navbar content={content}/>
 
@@ -90,9 +107,9 @@ function Explore() {
               breakpointCols={3}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid-column">
-                {assets.map((item) => {
+                {feeds?.map((item) => {
                   return(
-                    <ExploreCard item={item} key={assets.image}></ExploreCard>
+                    <ExploreCard item={item} key={item.id}></ExploreCard>
                   )
                 })}
               </Masonry>
@@ -101,6 +118,16 @@ function Explore() {
 
         </Col>
       </Row>
+
+      <div style={{
+          borderLeft: "1px solid #6A6A6A4D",
+          height: "100vh",
+          width: "0px",
+          position: "absolute",
+          left: "28%",
+          top: "0"
+        }}></div>
+
     </Container>
   )
 }

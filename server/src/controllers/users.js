@@ -70,3 +70,32 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
+
+exports.getUser = async (req, res) => {
+
+  try {
+    const { id } = req.params;
+
+    const user = await tb_users.findAll({
+      where: {
+        id
+      },
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+      },
+    });
+
+    res.send({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};

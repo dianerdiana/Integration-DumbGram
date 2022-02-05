@@ -1,12 +1,12 @@
 import { Image, Row, Col } from 'react-bootstrap'
-import style from './FeedProfile.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { UserContext } from "../../context/userContext";
+import style from './FeedProfile.module.css'
 
+import { UserContext } from "../../context/userContext";
 import React, { useContext } from "react";
 
-export default function FeedProfile() {
+export default function ProFeed(props) {
 
   const [state, dispatch] = useContext(UserContext);
 
@@ -19,6 +19,8 @@ export default function FeedProfile() {
     });
     navigate("/");
   };
+
+  const user = props.dataProfile
 
   return(
     <Row className={style.leftFeed}>
@@ -33,28 +35,28 @@ export default function FeedProfile() {
             </Link>
           </div>
           <div className={style.profileImageWrap} mb={5}>
-            <Image src="/images/Rectangle-6.png" className={style.profileImage} />
+            <Image src={user.image} className={style.profileImage} />
           </div>
           <div className={style.profileNameUser} mb={5}>
-            <h5 className={style.profileName}>Lisa</h5>
-            <p className={style.profileUserName}>@lalalisa_m</p>
+            <h5 className={style.profileName}>{user.fullName}</h5>
+            <p className={style.profileUserName}>@{user.username}</p>
           </div>
           <div className={style.profileState}>
             <div className={style.profilePost}>
               <span className={style.stateTitle}>Posts</span>
-              <span className={style.stateValue}>200</span>
+              <span className={style.stateValue}>{user.userFeeds}</span>
             </div>
             <div className={style.profileFollowers}>
               <span className={style.stateTitle}>Followers</span>
-              <span className={style.stateValue}>51.2 M</span>
+              <span className={style.stateValue}>{user.followers}</span>
             </div>
             <div className={style.profileFollow}>
               <span className={style.stateTitle}>Following</span>
-              <span className={style.stateValue}>1</span>
+              <span className={style.stateValue}>{user.following}</span>
             </div>
           </div>
           <div className={style.profileDesc}>
-            <span className={style.profileDescText}>Rapper in Black Pink, Brand Ambasador Penshoppe</span>
+            <span className={style.profileDescText}>{user.bio}</span>
           </div>
         </Row>
         <Row className={style.linkFeedExplore}>

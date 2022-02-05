@@ -1,7 +1,8 @@
 import { Container, Row, Col, Image } from "react-bootstrap"
+import { useState } from "react"
+
 import style from "./Landing.module.css"
 import Masonry from "../../components/Masonry"
-import { useState } from "react"
 import Login from "../../components/login/Login"
 import Register from "../../components/register/Register"
 
@@ -24,7 +25,6 @@ function Landing() {
 
   const [ loginModal, setLoginModal ] = useState(false)
   const [ registerModal, setRegisterModal ] = useState(false)
-
 
   return (
       <Container >

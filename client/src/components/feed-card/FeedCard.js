@@ -9,12 +9,12 @@ function FeedCard (props) {
 
   return (
       <div>
-        <Image src={props.item.image} style={{display: "flex", width: "100%", borderRadius: "5px"}}/>
+        <Image src={props.item.fileName} style={{display: "flex", width: "100%", borderRadius: "5px"}}/>
         <div style={{display: "flex", margin: "10px 0"}}>
           <div>
             <Link to="/profile" style={{textDecoration: "none"}}>
               <Image src="/images/zayn.png" style={{width: "24px"}}/>
-              <span style={{marginLeft: "5px", color: "#ABABAB"}}>{props.item.name}</span>
+              <span style={{marginLeft: "5px", color: "#ABABAB"}}>{props.item.uploader.fullName}</span>
             </Link>
           </div>
           <div style={{display: "flex", justifyContent: "space-between", marginLeft: "auto", width: "30%"}}>
