@@ -26,17 +26,41 @@ exports.getUsers = async (req, res) => {
 exports.editUser = async (req, res) => {
   try {
 
-    const user = await tb_users.update(req.body, {
+    let id = req.user.id
+
+    console.log(id)
+
+    let data = {
+      image: req?.file?.filename,
+      fullName: req?.body?.fullName,
+      email: req?.body?.email,
+      bio: req?.body?.bio
+    }
+
+    const user = await tb_users.update(data, {
       where: {
-        id: [req.params.id, req.user.id]
+        id,
       },
     });
+
+    const userData = await tb_users.findOne({
+      where: {
+        id,
+      }
+    })
+
+    let newData = JSON.parse(JSON.stringify(userData));
+
+    newData = {
+      ...newData,
+      image: process.env.FILE_PATH + newData.image
+    }
 
     res.send({
       status: "success",
       message: `Edit finished`,
       data: {
-        User: user
+        data: newData
       }
     });
   } catch (error) {

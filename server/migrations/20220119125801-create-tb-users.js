@@ -21,10 +21,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "/public/images/profile.png"
       },
       bio: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "Write your bio here..."
       },
       createdAt: {
         allowNull: false,

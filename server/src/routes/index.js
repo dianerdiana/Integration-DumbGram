@@ -33,7 +33,7 @@ router.get("/check-auth", auth, checkAuth);
 
 //route user
 router.get("/users", auth, getUsers)
-router.patch("/user/:id", auth, editUser)
+router.patch("/user/:id", auth, uploadFile('image'), editUser)
 router.delete("/user/:id", deleteUser)
 router.get("/user/:id", auth, getUser)
 

@@ -30,12 +30,12 @@ export default function ProFeed(props) {
       </Col>
         <Row className={style.feedProfile}>
           <div className={style.editBtn}>
-            <Link to="/edit-profile" >
+            <Link to={"/edit-profile/" + user.id} >
               <Image src="/icons/edit-icon.svg" className={style.editBtnIcon}/>
             </Link>
           </div>
           <div className={style.profileImageWrap} mb={5}>
-            <Image src={user.image} className={style.profileImage} />
+            <Image src={"http://localhost:5000/uploads/" + user.image} className={style.profileImage} />
           </div>
           <div className={style.profileNameUser} mb={5}>
             <h5 className={style.profileName}>{user.fullName}</h5>

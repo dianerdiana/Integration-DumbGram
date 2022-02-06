@@ -36,7 +36,7 @@ export default function ProExplore(props) {
             </Link>
           </div>
           <div className={style.profileImageWrap} mb={5}>
-            <Image src={user.image} className={style.profileImage} />
+            <Image src={"http://localhost:5000/uploads/" + user.image} className={style.profileImage} />
           </div>
           <div className={style.profileNameUser} mb={5}>
             <h5 className={style.profileName}>{user.fullName}</h5>
