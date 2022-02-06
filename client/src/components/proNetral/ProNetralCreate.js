@@ -1,8 +1,38 @@
 import { Image, Row, Col } from 'react-bootstrap'
-import style from './ProNetral.module.css'
-import { Link } from 'react-router-dom'
 
-export default function ProNetralCreate() {
+import { Link, useNavigate } from 'react-router-dom'
+
+import { UserContext } from "../../context/userContext";
+import React, { useContext } from "react";
+
+import style from './ProNetral.module.css'
+
+export default function ProNetralCreate(props) {
+  
+  const [state, dispatch] = useContext(UserContext);
+
+  let navigate = useNavigate()
+
+  const logout = () => {
+    console.log(state);
+    dispatch({
+      type: "LOGOUT",
+    });
+    navigate("/");
+  };
+
+  const user = props.dataUser
+
+  const {
+    image, 
+    fullName, 
+    username, 
+    bio, 
+    followers, 
+    following, 
+    userFeeds
+  } = user
+
   return(
     <Row className={style.leftFeed}>
       <Col>
@@ -11,33 +41,33 @@ export default function ProNetralCreate() {
       </Col>
         <Row className={style.feedProfile}>
           <div className={style.editBtn}>
-            <Link to="/edit-profile" >
+            <Link to={"/edit-profile/" + user.id} >
               <Image src="/icons/edit-icon.svg" className={style.editBtnIcon}/>
             </Link>
           </div>
           <div className={style.profileImageWrap} mb={5}>
-            <Image src="/images/Rectangle-6.png" className={style.profileImage} />
+            <Image src={"http://localhost:5000/uploads/" + image} className={style.profileImage} />
           </div>
           <div className={style.profileNameUser} mb={5}>
-            <h5 className={style.profileName}>Lisa</h5>
-            <p className={style.profileUserName}>@lalalisa_m</p>
+            <h5 className={style.profileName}>{fullName}</h5>
+            <p className={style.profileUserName}>@{username}</p>
           </div>
           <div className={style.profileState}>
             <div className={style.profilePost}>
               <span className={style.stateTitle}>Posts</span>
-              <span className={style.stateValue}>200</span>
+              <span className={style.stateValue}>{userFeeds}</span>
             </div>
             <div className={style.profileFollowers}>
               <span className={style.stateTitle}>Followers</span>
-              <span className={style.stateValue}>51.2 M</span>
+              <span className={style.stateValue}>{followers}</span>
             </div>
             <div className={style.profileFollow}>
               <span className={style.stateTitle}>Following</span>
-              <span className={style.stateValue}>1</span>
+              <span className={style.stateValue}>{following}</span>
             </div>
           </div>
           <div className={style.profileDesc}>
-            <span className={style.profileDescText}>Rapper in Black Pink, Brand Ambasador Penshoppe</span>
+            <span className={style.profileDescText}>{bio}</span>
           </div>
         </Row>
         <Row className={style.linkFeedExplore}>
@@ -56,10 +86,10 @@ export default function ProNetralCreate() {
         </Row>
         <Row style={{ paddingTop: "15px"}}>
           <Col className={style.btnGroup}>
-            <Link to="/" className={style.btnLogout}>
+            <button onClick={logout} className={style.btnLogout}>
               <Image src="/icons/logout-icon.svg"/>
               <span>Logout</span>
-            </Link>
+            </button>
           </Col>
         </Row>
       </Col>
