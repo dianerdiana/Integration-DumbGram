@@ -3,7 +3,7 @@ import { Modal, Container, Row, Col, Image } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import style from "./FeedCard.module.css"
 
-function FeedCard (props) {
+function UserFeedCard (props) {
 
   const [detailFeed, setDetailFeed] = React.useState(false);
 
@@ -107,4 +107,4 @@ function Detail(props) {
   );
 }
 
-export default FeedCard
+export default UserFeedCard

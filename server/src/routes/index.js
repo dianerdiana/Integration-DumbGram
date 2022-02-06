@@ -48,7 +48,7 @@ router.get("/following-count/:id", followingCount)
 router.post("/feed", auth, uploadFile('image'), addFeed)
 router.get("/feed/:id", auth, getFollowedFeed)
 router.get("/feeds", getFeeds)
-router.get("/feed-user/:id", getFeedsUser)
+router.get("/feeds-user/:id", getFeedsUser)
 router.get("/count-feeds/:id", countFeedsUser)
 
 //route comments

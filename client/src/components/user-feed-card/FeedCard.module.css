@@ -1,0 +1,14 @@
+.customContentStyle {
+  background-color: #1F1F1F;
+  border-radius: 10px;
+}
+
+.btnLike, .btnComment {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.btnComment {
+  margin-right: 5px;
+}

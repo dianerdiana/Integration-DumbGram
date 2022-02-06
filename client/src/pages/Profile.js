@@ -6,7 +6,7 @@ import { API } from '../config/api'
 import { useParams } from "react-router-dom";
 
 import Masonry from "react-masonry-css"
-import FeedCard from "../components/feed-card/FeedCard"
+import UserFeedCard from "../components/user-feed-card/UserFeedCard";
 import ProUser from "../components/proUser/ProUser"
 import Navbar from "../components/navbar/Navbar"
 
@@ -30,18 +30,79 @@ function Profile() {
 
   const [state, dispatch] = useContext(UserContext)
 
-  let { id } = useParams()
+  const params = useParams()
+  const userId = params.id
 
-  id = state.user.id
+  const [ feeds, setFeeds ] = useState([]);
+  const [ dataUser, setDataUser ] = useState();
+  const [ followers, setFollowers ] = useState(0);
+  const [ following, setFollowing ] = useState(0);
+  const [ userFeeds, setUserFeeds ] = useState(0);
 
-  const [ feeds, setFeeds ] = useState([])
+  console.log(dataUser)
 
-  console.log(feeds)
-
-  const getFollowedFeed = async (id) => {
+  const getUser = async (userId) => {
     try {
       
-      const response = await API.get("/feed/" + id)
+      const response = await API.get("/user/" + userId)
+      let dataUser = response.data.data.user[0]
+
+      setDataUser(dataUser)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getFollowersCount = async (id) => {
+    try {
+      
+      const response = await API.get("/followers-count/" + id)
+
+      setFollowers(response.data.data.followers)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getFollowingCount = async (id) => {
+    try {
+      
+      const response = await API.get("/following-count/" + id)
+
+      setFollowing(response.data.data.following)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const countUserFeeds = async (id) => {
+    try {
+      
+      const response = await API.get("/count-feeds/" + id)
+
+      setUserFeeds(response.data.data.feed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  let user = {
+    ...dataUser,
+  followers,
+  following,
+  userFeeds
+}
+
+  let firstName = dataUser?.fullName.split(" ")[0]
+
+  const getFeedsUser = async (userId) => {
+    try {
+      
+      const response = await API.get("/feeds-user/" + userId)
 
       setFeeds(response.data.data.feed)
 
@@ -51,7 +112,11 @@ function Profile() {
   }
 
   useEffect(() => {
-    getFollowedFeed(id)
+    getFeedsUser(userId);
+    getUser(userId);
+    getFollowersCount(userId);
+    getFollowingCount(userId);
+    countUserFeeds(userId)
   }, []);
 
   return (
@@ -59,7 +124,7 @@ function Profile() {
       <Row style={{flexDirection: "row"}}>
         <Col md="3">
 
-          <ProUser />
+          <ProUser dataUser={user}/>
 
         </Col>
 
@@ -70,7 +135,7 @@ function Profile() {
             <Navbar content={content}/>
 
             <Col className="right-title">
-              <h3>Zayn, Feed</h3>
+              <h3>{firstName}, Feed</h3>
             </Col>
 
             <div className="right-content">
@@ -80,7 +145,7 @@ function Profile() {
               columnClassName="my-masonry-grid-column">
                 {feeds?.map((item) => {
                   return(
-                    <FeedCard item={item} key={item.id}></FeedCard>
+                    <UserFeedCard item={item} key={item.id}></UserFeedCard>
                   )
                 })}
               </Masonry>

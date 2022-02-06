@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap"
 import { useState, useContext, useEffect } from "react"
 import { UserContext } from '../context/userContext';
+import { useParams } from "react-router-dom";
 
 import { API } from '../config/api'
 
@@ -60,11 +61,15 @@ const content = [
 
 function Explore() {
 
-  const [state, dispatch] = useContext(UserContext);
+  const [state, dispatch] = useContext(UserContext)
 
-  const [ feeds, setFeeds ] = useState([]);
+  let { id } = useParams()
+  id = state.user.id
 
-  console.log(feeds)
+  const [ feeds, setFeeds ] = useState([])
+  const [ followers, setFollowers ] = useState(0)
+  const [ following, setFollowing ] = useState(0)
+  const [ userFeeds, setUserFeeds ] = useState(0)
 
   const getFeeds = async () => {
     try {
@@ -77,9 +82,55 @@ function Explore() {
       console.log(error)
     }
   }
-  
+
+  const getFollowersCount = async (userId) => {
+    try {
+      
+      const response = await API.get("/followers-count/" + userId)
+
+      setFollowers(response.data.data.followers)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getFollowingCount = async (userId) => {
+    try {
+      
+      const response = await API.get("/following-count/" + userId)
+
+      setFollowing(response.data.data.following)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const countUserFeeds = async (userId) => {
+    try {
+      
+      const response = await API.get("/count-feeds/" + userId)
+
+      setUserFeeds(response.data.data.feed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const dataUser = {
+    ...state.user,
+    followers,
+    following,
+    userFeeds
+  }
+
   useEffect(() => {
-    getFeeds()
+    getFeeds();
+    getFollowersCount(id);
+    getFollowingCount(id);
+    countUserFeeds(id);
   }, []);
 
 
@@ -88,7 +139,7 @@ function Explore() {
       <Row style={{flexDirection: "row"}}>
         <Col md="3">
 
-          <ProExplore dataProfile={state}/>
+          <ProExplore dataProfile={dataUser}/>
 
         </Col>
 

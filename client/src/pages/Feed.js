@@ -37,8 +37,6 @@ function Feed() {
   const [ following, setFollowing ] = useState(0)
   const [ userFeeds, setUserFeeds ] = useState(0)
 
-  console.log(feeds)
-
   const getFollowedFeed = async (id) => {
     try {
       
@@ -51,10 +49,10 @@ function Feed() {
     }
   }
 
-  const getFollowersCount = async (id) => {
+  const getFollowersCount = async (userId) => {
     try {
       
-      const response = await API.get("/followers-count/" + id)
+      const response = await API.get("/followers-count/" + userId)
 
       setFollowers(response.data.data.followers)
 
@@ -63,10 +61,10 @@ function Feed() {
     }
   }
 
-  const getFollowingCount = async (id) => {
+  const getFollowingCount = async (userId) => {
     try {
       
-      const response = await API.get("/following-count/" + id)
+      const response = await API.get("/following-count/" + userId)
 
       setFollowing(response.data.data.following)
 
@@ -75,10 +73,10 @@ function Feed() {
     }
   }
 
-  const countUserFeeds = async (id) => {
+  const countUserFeeds = async (userId) => {
     try {
       
-      const response = await API.get("/count-feeds/" + id)
+      const response = await API.get("/count-feeds/" + userId)
 
       setUserFeeds(response.data.data.feed)
 
@@ -93,8 +91,6 @@ function Feed() {
     following,
     userFeeds
   }
-
-  console.log(dataUser)
 
   useEffect(() => {
     getFollowedFeed(id);

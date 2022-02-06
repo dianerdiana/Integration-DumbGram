@@ -7,7 +7,7 @@ import React, { useContext } from "react";
 import style from './ProUser.module.css'
 
 
-export default function ProUser() {
+export default function ProUser(props) {
 
   let navigate = useNavigate()
 
@@ -21,6 +21,9 @@ export default function ProUser() {
     navigate("/");
   };
 
+  const user = props.dataUser;
+  let { image, fullName, bio, username, followers, following, userFeeds } = user
+
   return (
     <Row className={style.leftFeed}>
       <Col>
@@ -29,11 +32,11 @@ export default function ProUser() {
       </Col>
         <Row className={style.feedProfile}>
           <div className={style.profileImageWrap} mb={5}>
-            <Image src="/images/zayn-unborder.jpg" className={style.profileImage} />
+            <Image src={image} className={style.profileImage} />
           </div>
           <div className={style.profileNameUser} mb={5}>
-            <h5 className={style.profileName}>Zayn Malik</h5>
-            <p className={style.profileUserName}>@zayn</p>
+            <h5 className={style.profileName}>{fullName}</h5>
+            <p className={style.profileUserName}>@{username}</p>
           </div>
           <div className={style.btnAction}>
             <button className={style.btnMessage}>Message</button>
@@ -42,19 +45,19 @@ export default function ProUser() {
           <div className={style.profileState}>
             <div className={style.profilePost}>
               <span className={style.stateTitle}>Posts</span>
-              <span className={style.stateValue}>143</span>
+              <span className={style.stateValue}>{userFeeds}</span>
             </div>
             <div className={style.profileFollowers}>
               <span className={style.stateTitle}>Followers</span>
-              <span className={style.stateValue}>40.5 M</span>
+              <span className={style.stateValue}>{followers}</span>
             </div>
             <div className={style.profileFollow}>
               <span className={style.stateTitle}>Following</span>
-              <span className={style.stateValue}>28</span>
+              <span className={style.stateValue}>{following}</span>
             </div>
           </div>
           <div className={style.profileDesc}>
-            <span className={style.profileDescText}>Nobody is Listening Out Now! www.inzayn.com</span>
+            <span className={style.profileDescText}>{bio}</span>
           </div>
         </Row>
         <Row className={style.linkFeedExplore}>

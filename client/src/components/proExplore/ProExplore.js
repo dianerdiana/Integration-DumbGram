@@ -6,7 +6,7 @@ import { UserContext } from "../../context/userContext";
 import React, { useContext } from "react";
 
 
-export default function FeedProfile() {
+export default function ProExplore(props) {
 
   let navigate = useNavigate()
 
@@ -20,7 +20,7 @@ export default function FeedProfile() {
     navigate("/");
   };
 
-  const user = state.user
+  const user = props.dataProfile
 
 
   return(
@@ -45,15 +45,15 @@ export default function FeedProfile() {
           <div className={style.profileState}>
             <div className={style.profilePost}>
               <span className={style.stateTitle}>Posts</span>
-              <span className={style.stateValue}>200</span>
+              <span className={style.stateValue}>{user.userFeeds}</span>
             </div>
             <div className={style.profileFollowers}>
               <span className={style.stateTitle}>Followers</span>
-              <span className={style.stateValue}>51.2 M</span>
+              <span className={style.stateValue}>{user.followers}</span>
             </div>
             <div className={style.profileFollow}>
               <span className={style.stateTitle}>Following</span>
-              <span className={style.stateValue}>1</span>
+              <span className={style.stateValue}>{user.following}</span>
             </div>
           </div>
           <div className={style.profileDesc}>

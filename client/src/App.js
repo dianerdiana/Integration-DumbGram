@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Route, Routes, useNavigate, useParams } from "react-router-dom"
-import { useContext, useState, useEffect } from 'react';
+import { Route, Routes, useNavigate } from "react-router-dom"
+import { useContext, useEffect } from 'react';
 
 import Landing from './pages/landing/Landing';
 import Feed from './pages/Feed';
@@ -30,8 +30,6 @@ function App() {
   // Init user context here ...
   const [state, dispatch] = useContext(UserContext);
 
-  console.log(state);
-
   // Redirect Auth here ...
   useEffect(() => {
     // Redirect Auth
@@ -47,8 +45,6 @@ function App() {
     try {
       const response = await API.get('/check-auth');
 
-      console.log(response)
-
       // If the token incorrect
       if (response.status === 404) {
         return dispatch({
@@ -60,8 +56,6 @@ function App() {
       let payload = response.data.data.user;
       // Get token from local storage
       payload.token = localStorage.token;
-
-      console.log(payload)
 
       // Send data to useContext
       dispatch({
@@ -83,7 +77,7 @@ function App() {
         <Route exact path="/" element={ <Landing /> } />
         <Route exact path="/edit-profile" element={ <EditProfile /> } />
         <Route exact path="/create-post" element={ <CreatePost /> } />
-        <Route exact path="/profile" element={ <Profile /> } />
+        <Route exact path="/user/:id" element={ <Profile /> } />
         <Route exact path="/explore" element={ <Explore /> } />
         <Route exact path="/messages" element={ <MessagesMain /> } />
         <Route exact path="/feed" element={ <Feed /> } />
