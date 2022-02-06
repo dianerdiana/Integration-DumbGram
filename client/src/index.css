@@ -88,3 +88,7 @@ code {
   background: transparent;
   border-radius: 10px;
 }
+
+.input-comment input::placeholder {
+  color: #FFFFFF;
+}
